@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textfield_cubit/counter/counter.dart';
@@ -55,12 +53,9 @@ class CounterText extends StatefulWidget {
 class _CounterTextState extends State<CounterText> {
   final _textController = TextEditingController();
 
-  StreamSubscription<int?>? _streamSubscription;
-
   @override
   void initState() {
     final cubit = context.read<CounterCubit>();
-    _streamSubscription = cubit.stream.listen(_onStateChanged);
     _textController
       ..text = cubit.state.toString()
       ..addListener(_onTextChanged);
@@ -69,7 +64,6 @@ class _CounterTextState extends State<CounterText> {
 
   @override
   void dispose() {
-    _streamSubscription?.cancel();
     super.dispose();
   }
 
@@ -94,9 +88,14 @@ class _CounterTextState extends State<CounterText> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return TextField(
-      controller: _textController,
-      style: theme.textTheme.displayLarge,
+    return BlocListener<CounterCubit, int?>(
+      listener: (context, state) {
+        _onStateChanged(state);
+      },
+      child: TextField(
+        controller: _textController,
+        style: theme.textTheme.displayLarge,
+      ),
     );
   }
 }
