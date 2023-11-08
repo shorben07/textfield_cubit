@@ -64,6 +64,7 @@ class _CounterTextState extends State<CounterText> {
 
   @override
   void dispose() {
+    _textController.dispose();
     super.dispose();
   }
 
