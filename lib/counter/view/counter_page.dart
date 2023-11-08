@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textfield_cubit/counter/counter.dart';
 import 'package:textfield_cubit/l10n/l10n.dart';
@@ -96,6 +97,9 @@ class _CounterTextState extends State<CounterText> {
       child: TextField(
         controller: _textController,
         style: theme.textTheme.displayLarge,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>
+        [FilteringTextInputFormatter.digitsOnly,],
       ),
     );
   }
