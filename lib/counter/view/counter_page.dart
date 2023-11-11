@@ -98,8 +98,9 @@ class _CounterTextState extends State<CounterText> {
         controller: _textController,
         style: theme.textTheme.displayLarge,
         keyboardType: TextInputType.number,
-        inputFormatters: <TextInputFormatter>
-        [FilteringTextInputFormatter.digitsOnly,],
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
       ),
     );
   }
